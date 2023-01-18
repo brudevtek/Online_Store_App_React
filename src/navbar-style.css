@@ -1,0 +1,74 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans&display=swap');
+
+.nav_bar {
+  display: flex;
+  flex-direction: row;
+  gap: 10rem;
+  background-color: #0072B5;
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-transform: uppercase;
+  padding-left: 10px;
+  
+}
+
+
+.nav_bar .logo a{
+  text-decoration: none;
+  color: white;
+  font-family: "Pacifico";
+  word-spacing: 10px;
+  letter-spacing: 2px;
+}
+
+.nav_bar .menu a{
+  text-decoration: none;
+  color: white;
+  font-family: "Sofia Sans";
+}
+
+
+
+.nav_bar .menu ul{
+  display: flex;
+  flex-direction: row;
+  gap: 10rem;
+  list-style: none;
+}
+
+.nav_bar .cart_class{
+  background-color: rgb(238, 236, 227);
+  border-radius: 2px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+
+}
+
+
+.nav_bar .cart_class .qty_cart{
+  right:0;
+  color: white;
+  background-color: red;
+  position: absolute;
+  top:-9px;
+  right: -9px;
+  padding: 5px;
+  border-radius: 5px;
+  
+}
+
+.nav_bar .cart_class a{
+  cursor: pointer;
+
+}
+
+.nav_bar .cart_class a img{
+  height: 30px;
+
+}
