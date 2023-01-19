@@ -4,26 +4,48 @@ import React, { Component } from 'react';
 
 //  const bucket= JSON.parse(localStorage.getItem("data")) || 0;
 
-const dataHub = [{}]
+const dataHub = []
+
+const DatahubRetr= JSON.parse(window.localStorage.getItem('DataHub'))
 
 class Item extends Component{
-    constructor() {
-        super();
-        // this.state = JSON.parse(window.localStorage.getItem('state')) || { 
-        //     counter: 0 , 
-        //     id:0};
-      this.state = { 
-        counter: 0 , 
-        id:0};
-            
-      }
+  
+    constructor(props) {
+     
       
-      componentDidMount() {  
-        // window.localStorage.setItem('state', JSON.stringify(this.state));
-        // const dataHub=[{}]
-        
+      //   super();
+      //   this.state = JSON.parse(window.localStorage.getItem('DataHub')) || { 
+      //       counter: 0 , 
+      //       id:0};
+   
             
+      // }
+      
+
+      super(props);
+      this.state =  { 
+          counter: 0 , 
+          id:this.props.id};
+ 
+          
+    }
+
+      componentDidMount() {  
+        
+        
+      
+      
+      if (DatahubRetr){
+        console.log("asjaja",(DatahubRetr.find((x)=> x.id ===this.props.id).counter))
+        const NewCounter=(DatahubRetr.find((x)=> x.id ===this.props.id).counter)
+        this.setState({counter: NewCounter})
+
+      } else{
+        // DO NOTHING
+        this.setState({counter: 0})
+
       }
+    }
 
     //   setState(state) {
     //     window.localStorage.setItem('state', JSON.stringify(state));
@@ -58,16 +80,11 @@ class Item extends Component{
         }else {
           zz.counter=(this.state.counter)
         }
-        
-
-        
         window.localStorage.setItem('DataHub', JSON.stringify(dataHub));
+       
+
       }
 
-      
-      
-
-      
       render(){
         return(
           <div className="item">
