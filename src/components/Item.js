@@ -1,86 +1,86 @@
 
 import React, { Component } from 'react';
+// import { goPremium } from '../CartIcon';
 
 
-//  const bucket= JSON.parse(localStorage.getItem("data")) || 0;
 
-const dataHub = []
 
-const DatahubRetr= JSON.parse(window.localStorage.getItem('DataHub'))
+
+const DataToStore = []
+const QtyInCart=[]
+
+
+const StoredData= JSON.parse(window.localStorage.getItem('DataHub'))
 
 class Item extends Component{
   
     constructor(props) {
-     
-      
-      //   super();
-      //   this.state = JSON.parse(window.localStorage.getItem('DataHub')) || { 
-      //       counter: 0 , 
-      //       id:0};
-   
-            
-      // }
-      
-
+    
       super(props);
       this.state =  { 
-          counter: 0 , 
+          count: 0 , 
           id:this.props.id};
- 
-          
+     
     }
 
       componentDidMount() {  
+        // Check if there any data in the local storage. If not just set the count to 0
+      if (StoredData){
         
-        
-      
-      
-      if (DatahubRetr){
-        console.log("asjaja",(DatahubRetr.find((x)=> x.id ===this.props.id).counter))
-        const NewCounter=(DatahubRetr.find((x)=> x.id ===this.props.id).counter)
-        this.setState({counter: NewCounter})
+        const NewCounter=(StoredData.find((x)=> x.id ===this.props.id).count)
+        this.setState({count: NewCounter})
+        QtyInCart.push(this.state.count)
 
       } else{
-        // DO NOTHING
-        this.setState({counter: 0})
+        this.setState({count: 0})
 
       }
     }
 
-    //   setState(state) {
-    //     window.localStorage.setItem('state', JSON.stringify(state));
-    //     super.setState(state);
-    //   }
-
-    
-
       IncreaseByOne = (id) => {
         
-        this.setState({counter: this.state.counter + 1,id:this.props.id })
+        
+        this.setState({count: this.state.count + 1,id:this.props.id })
+
+        
         
       }
+
       DecreaseByOne = (id) => {
-        if (this.state.counter ===0){
+
+        if (this.state.count ===0){
             // do nothing
         } else {
-            this.setState({counter: this.state.counter - 1,id:this.props.id })
-            }
-            
-          
-            
+            this.setState({count: this.state.count - 1,id:this.props.id })
+            }     
 
         }
         
       
       componentDidUpdate() {
-        // localStorage.setItem('state', JSON.stringify(this.state))
-        const zz=dataHub.find((y) => y.id ===this.state.id)
+        //When there are any changes to the component, push the current state to DataToStore array and store it 
+        
+        const zz=DataToStore.find((y) => y.id ===this.state.id)
         if(zz===undefined){
-          dataHub.push(this.state)
+          DataToStore.push(this.state)
         }else {
-          zz.counter=(this.state.counter)
+          zz.count=(this.state.count)
         }
-        window.localStorage.setItem('DataHub', JSON.stringify(dataHub));
+        const QtySum= DataToStore.map(x => x.count)
+        
+        const TotalQtyInCart = QtySum.reduce((a, b) => {
+          return a + b;
+        });
+        
+
+
+        window.localStorage.setItem('Total', JSON.stringify(TotalQtyInCart));
+        
+
+        window.localStorage.setItem('DataHub', JSON.stringify(DataToStore));
+
+        
+        
        
 
       }
@@ -101,7 +101,7 @@ class Item extends Component{
                           <i onClick={() => {this.DecreaseByOne(this.props.id)}}>-</i>  
                       </div>
                       <div className="one_item_counter">
-                          <h1>{this.state.counter}</h1>
+                          <h1>{this.state.count}</h1>
                       </div>
                       <div>
                           <i onClick={() => {this.IncreaseByOne(this.props.id)}}>+</i>
@@ -116,3 +116,8 @@ class Item extends Component{
     }}
 
 export default Item;
+
+
+
+
+
